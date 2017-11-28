@@ -13,5 +13,4 @@ public class UserService {
     public User getUser(int id){
         return userDAO.selectById(id);
     }
-
 }

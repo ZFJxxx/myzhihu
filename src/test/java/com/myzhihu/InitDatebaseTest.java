@@ -27,9 +27,9 @@ public class InitDatebaseTest {
     QuestionDAO questionDAO;
 
     @Test
-    public void userTest() {
+    public void initDataTest() {
         Random random = new Random();
-        for (int i = 0; i < 11; ++i) {
+        for (int i = 1; i <= 11; ++i) {
             User user = new User();
             user.setHeadUrl(String.format("http://images.nowcoder.com/head/%dt.png", random.nextInt(1000)));
             user.setName(String.format("USER%d", i));
@@ -39,24 +39,20 @@ public class InitDatebaseTest {
 
             user.setPassword("xxx");
             userDAO.updatePassword(user);
-            System.out.println(userDAO.selectById(1));
         }
-    }
 
-
-    @Test
-    public void questionTest(){
-        for(int i = 0;i<=10;++i) {
+        for(int i = 1;i<=11;++i) {
             Question question = new Question();
             question.setCommentCount(i);
             question.setTitle(String.format("题目标题[%d]",i));
-            question.setUserId(i*i);
+            question.setUserId(i);
             question.setContent(String.format("问题内容{%d}",i));
             Date date = new Date();
             date.setTime(date.getTime()+1000);
             question.setCreatedDate(date);
             questionDAO.addQuestion(question);
         }
-    }
 
+        System.out.print(questionDAO.selectLatestQuestions(0,0,10));
+    }
 }

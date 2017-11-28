@@ -17,5 +17,4 @@ public interface UserDAO {
 
     @Delete({"delete from user where id = #{id}"})
     void deleteById(int id);
-
 }
