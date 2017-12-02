@@ -6,11 +6,15 @@ import org.apache.ibatis.annotations.*;
 @Mapper
 public interface UserDAO {
 
-    @Insert({"insert into user(name, password,salt,head_url)values(#{name},#{password},#{salt},#{headUrl})"})
-    int addUser(User user);
+    //注册用户
+    @Insert({"insert into user(name, password,salt,head_url) values (#{name},#{password},#{salt},#{headUrl})"})
+    void addUser(User user);
 
     @Select({"select * from user where id = #{id}"})
     User selectById(int id);
+
+    @Select({"select * from user where name = #{name}"})
+    User selectByName(String name);
 
     @Update({"update user set password = #{password} where id =#{id}"})
     void updatePassword(User user);

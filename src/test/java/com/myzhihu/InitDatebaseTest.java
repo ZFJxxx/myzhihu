@@ -31,7 +31,7 @@ public class InitDatebaseTest {
         Random random = new Random();
         for (int i = 1; i <= 11; ++i) {
             User user = new User();
-            user.setHeadUrl(String.format("http://images.nowcoder.com/head/%dt.png", random.nextInt(1000)));
+            user.setHeadUrl("https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=4080609108,1550036849&fm=27&gp=0.jpg");
             user.setName(String.format("USER%d", i));
             user.setPassword("123");
             user.setSalt(" "+random.nextInt(10000));

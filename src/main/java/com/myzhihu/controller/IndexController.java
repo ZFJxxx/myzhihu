@@ -1,6 +1,5 @@
 package com.myzhihu.controller;
 
-import com.myzhihu.dao.UserDAO;
 import com.myzhihu.pojo.Question;
 import com.myzhihu.pojo.ViewObject;
 import com.myzhihu.service.QuestionService;
@@ -17,6 +16,7 @@ import java.util.List;
 
 @Controller
 public class IndexController {
+
     @Autowired
     QuestionService questionService;
     @Autowired
@@ -28,8 +28,9 @@ public class IndexController {
         return "index";
     }
 
-    @RequestMapping(path = {"/index/{userId}"} ,method ={RequestMethod.GET})
-    public String userIndex(Model model, @PathVariable("userId") int userId) {
+    @RequestMapping(path = {"/user/{userId}"} ,method ={RequestMethod.GET})
+    public String userIndex(Model model,
+                            @PathVariable("userId") int userId) {
         model.addAttribute("vos",getQuestions(userId,0,10));
         return "index";
     }

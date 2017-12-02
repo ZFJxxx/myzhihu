@@ -10,3 +10,8 @@ ORM框架： Mybatis 1.1.1
 数据库 ：MySQL 5.7
 
 单元测试：Junit4
+
+1.登陆注册功能
+用户名注册合法性，防止注入，密码salt+MD5加密
+加ticket，下发cookie，记住用户登陆状态
+使用SpringMVC拦截器Interceptor，每访问页面就查询用户是否登录
