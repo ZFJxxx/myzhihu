@@ -13,7 +13,7 @@ public interface QuestionDAO {
 
     //根据ID查找问题
     @Select({"select * from question where id = #{id}"})
-    Question getById(int id);
+    Question getQuestionById(int id);
 
     //更新问题评论数
     @Update({"update question set comment_count = #{commentCount} where id=#{id}"})

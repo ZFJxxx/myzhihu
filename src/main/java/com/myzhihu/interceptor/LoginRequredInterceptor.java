@@ -9,6 +9,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/*
+ *特定页面只有登陆了才能访问，没访问跳回登陆页面
+ */
 @Component
 public class LoginRequredInterceptor implements HandlerInterceptor {
     @Autowired
