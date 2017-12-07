@@ -19,6 +19,7 @@ public class IndexController {
 
     @Autowired
     QuestionService questionService;
+
     @Autowired
     UserService userService;
 

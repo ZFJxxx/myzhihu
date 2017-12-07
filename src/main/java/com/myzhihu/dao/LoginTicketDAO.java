@@ -6,7 +6,8 @@ import org.apache.ibatis.annotations.*;
 @Mapper
 public interface LoginTicketDAO {
 
-    @Insert({"insert into login_ticket(id,user_id,ticket,expired,status)values(#{id},#{userId},#{ticket},#{expired},#{status})"})
+    @Insert({"insert into login_ticket(id,user_id,ticket,expired,status)values" +
+                                    "(#{id},#{userId},#{ticket},#{expired},#{status})"})
     int addLoginTicket(LoginTicket loginTicket);
 
     @Select({"select * from login_ticket where ticket = #{ticket}"})

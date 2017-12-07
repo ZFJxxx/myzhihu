@@ -1,6 +1,8 @@
 package com.myzhihu.service;
 
+import com.myzhihu.dao.CommentDAO;
 import com.myzhihu.dao.QuestionDAO;
+import com.myzhihu.pojo.EntityType;
 import com.myzhihu.pojo.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,10 +16,13 @@ public class QuestionService {
     @Autowired
     private QuestionDAO questionDAO;
 
+    @Autowired
+    private CommentDAO commentDAO;
+
     public int addQuestion(Question question){
         //过滤html标签
         question.setContent(HtmlUtils.htmlEscape(question.getContent()));
-        question.setTitle(HtmlUtils.htmlEscape(question.getContent()));
+        question.setTitle(HtmlUtils.htmlEscape(question.getTitle()));
         return questionDAO.addQuestion(question)>0 ? question.getId() : 0;
     }
 
@@ -30,8 +35,8 @@ public class QuestionService {
         }
     }
 
-    public int updateCommentCount(int id,int commentCount){
-        return questionDAO.updateCommentCount(id, commentCount);
+    public int updateCommentCount(int questionId,int commentCount){
+        return questionDAO.updateCommentCount(questionId,commentCount);
     }
 
     public Question getQuestionById(int id){

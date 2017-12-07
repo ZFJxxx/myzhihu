@@ -8,7 +8,8 @@ import java.util.List;
 public interface QuestionDAO {
 
     //添加问题
-    @Insert({"insert into question (title,content,created_date,user_id,comment_count)values(#{title},#{content},#{createdDate},#{userId},#{commentCount})"})
+    @Insert({"insert into question (title,content,created_date,user_id,comment_count)values" +
+                                  "(#{title},#{content},#{createdDate},#{userId},#{commentCount})"})
     int addQuestion(Question question);
 
     //根据ID查找问题

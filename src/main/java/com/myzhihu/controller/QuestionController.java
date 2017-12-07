@@ -1,9 +1,8 @@
 package com.myzhihu.controller;
 
 
-import com.myzhihu.pojo.HostHolder;
-import com.myzhihu.pojo.Question;
-import com.myzhihu.pojo.User;
+import com.myzhihu.pojo.*;
+import com.myzhihu.service.CommentService;
 import com.myzhihu.service.QuestionService;
 import com.myzhihu.service.UserService;
 import com.myzhihu.util.JSONUtil;
@@ -15,7 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class QuestionController {
@@ -27,18 +28,20 @@ public class QuestionController {
    QuestionService questionService;
    @Autowired
    HostHolder hostHolder;
+   @Autowired
+   CommentService commentService;
 
    @RequestMapping(value="/question/add",method = {RequestMethod.POST})
    @ResponseBody
    public String addQuestion(@RequestParam("title")String title,
-                           @RequestParam("content")String content) {
+                             @RequestParam("content")String content) {
        try{
             Question question = new Question();
             question.setContent(content);
             question.setTitle(title);
             question.setCreatedDate(new Date());
             if(hostHolder == null){
-                question.setUserId(999);
+                return JSONUtil.getJSONString(999);
             }else {
                 question.setUserId(hostHolder.getUser().getId());
             }
@@ -59,6 +62,16 @@ public class QuestionController {
        User user = userService.getUser(question.getUserId());
        model.addAttribute("question",question);
        model.addAttribute("user",user);
+
+       List<Comment> commentList = commentService.getCommentsByEntity(questionId, EntityType.ENTITY_QUESTION);
+       List<ViewObject> comments = new ArrayList<ViewObject>();
+       for(Comment comment: commentList){
+           ViewObject vo = new ViewObject();
+           vo.put("comment",comment);
+           vo.put("user",userService.getUser(comment.getUserId()));
+           comments.add(vo);
+       }
+       model.addAttribute("comments",comments);
        return "detail";
    }
 }

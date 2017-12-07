@@ -2,7 +2,6 @@ package com.myzhihu.controller;
 
 import com.myzhihu.service.LoginTicketService;
 import com.myzhihu.service.UserService;
-import com.myzhihu.util.MD5Util;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +21,7 @@ import java.util.Map;
 @Controller
 public class LoginController  {
 
-    private static final Logger logger = LoggerFactory.getLogger(MD5Util.class);
+    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
     UserService userService;

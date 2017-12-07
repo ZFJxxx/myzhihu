@@ -43,7 +43,7 @@ public class InitDatebaseTest {
 
         for(int i = 1;i<=11;++i) {
             Question question = new Question();
-            question.setCommentCount(i);
+            question.setCommentCount(0);
             question.setTitle(String.format("题目标题[%d]",i));
             question.setUserId(i);
             question.setContent(String.format("问题内容{%d}",i));
