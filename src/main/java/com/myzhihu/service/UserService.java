@@ -55,8 +55,8 @@ public class UserService {
     }
 
     //登陆
-    public Map<String ,String> Login(String username,String password){
-        Map<String,String> map = new HashMap<String ,String>();
+    public Map<String ,Object> Login(String username,String password){
+        Map<String,Object> map = new HashMap<String ,Object>();
         if(StringUtils.isBlank(username)){
             map.put("msg","用户名不能为空");
             return map;

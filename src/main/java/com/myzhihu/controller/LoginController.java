@@ -1,5 +1,8 @@
 package com.myzhihu.controller;
 
+import com.myzhihu.async.EventModel;
+import com.myzhihu.async.EventProducer;
+import com.myzhihu.async.EventType;
 import com.myzhihu.service.LoginTicketService;
 import com.myzhihu.service.UserService;
 import org.apache.commons.lang.StringUtils;
@@ -29,6 +32,9 @@ public class LoginController  {
     @Autowired
     LoginTicketService loginTicketService;
 
+    @Autowired
+    EventProducer eventProducer;
+
     //登陆
     @RequestMapping(path={"/login/"},method={RequestMethod.POST})
     public String login(Model model,
@@ -39,15 +45,16 @@ public class LoginController  {
                       HttpServletResponse response){
 
         try {
-            Map<String, String> map = userService.Login(username,password);
+            Map<String, Object> map = userService.Login(username,password);
             //存在ticket就创建cookie下发，反回主页
             if (map.containsKey("ticket")) {
-                Cookie cookie = new Cookie("ticket", map.get("ticket"));
+                Cookie cookie = new Cookie("ticket", map.get("ticket").toString());
                 cookie.setPath("/");
                 if(rememberme){
                     cookie.setMaxAge(3600*24*5);
                 }
                 response.addCookie(cookie);
+
                 if(StringUtils.isNotBlank(next)){
                     return "redirect:"+next;
                 }

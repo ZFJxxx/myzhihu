@@ -3,6 +3,7 @@ package com.myzhihu.controller;
 
 import com.myzhihu.pojo.*;
 import com.myzhihu.service.CommentService;
+import com.myzhihu.service.LikeService;
 import com.myzhihu.service.QuestionService;
 import com.myzhihu.service.UserService;
 import com.myzhihu.util.JSONUtil;
@@ -30,6 +31,8 @@ public class QuestionController {
    HostHolder hostHolder;
    @Autowired
    CommentService commentService;
+   @Autowired
+   LikeService likeService;
 
    @RequestMapping(value="/question/add",method = {RequestMethod.POST})
    @ResponseBody
@@ -68,6 +71,12 @@ public class QuestionController {
        for(Comment comment: commentList){
            ViewObject vo = new ViewObject();
            vo.put("comment",comment);
+           if(hostHolder.getUser()==null){
+               vo.put("liked",0);
+           }else{
+               vo.put("liked",likeService.getLikeStatus(hostHolder.getUser().getId(),comment.getId(),EntityType.ENTITY_COMMENT));
+           }
+           vo.put("likeCount",likeService.getLikeCount(comment.getId(),EntityType.ENTITY_COMMENT));
            vo.put("user",userService.getUser(comment.getUserId()));
            comments.add(vo);
        }
